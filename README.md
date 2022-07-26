@@ -8,7 +8,7 @@ VisionCamera Frame Processor Plugin to read barcodes using MLKit Vision Barcode 
 yarn add vision-camera-code-scanner
 ```
 
-make sure you correctly [setup](<(https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation/)>) react-native-reanimated and insert as a first line of your [`index.tsx`](https://github.com/rodgomesc/vision-camera-code-scanner/blob/1409a8afd02328a26e336036493b2d6ef8441359/example/index.tsx#L1)
+make sure you correctly [setup](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation/) react-native-reanimated and insert as a first line of your [`index.tsx`](https://github.com/rodgomesc/vision-camera-code-scanner/blob/1409a8afd02328a26e336036493b2d6ef8441359/example/index.tsx#L1)
 
 ```sh
 import 'react-native-reanimated'
@@ -44,13 +44,15 @@ export default function App() {
   const devices = useCameraDevices();
   const device = devices.back;
 
-  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE]);
+  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
+    checkInverted: true,
+  });
 
   // Alternatively you can use the underlying function:
   //
   // const frameProcessor = useFrameProcessor((frame) => {
   //   'worklet';
-  //   const detectedBarcodes = scanBarcodes(frame, [BarcodeFormat.QR_CODE]);
+  //   const detectedBarcodes = scanBarcodes(frame, [BarcodeFormat.QR_CODE], { checkInverted: true });
   //   runOnJS(setBarcodes)(detectedBarcodes);
   // }, []);
 
@@ -77,7 +79,7 @@ export default function App() {
             {barcode.displayValue}
           </Text>
         ))}
-      <p/>
+      </>
     )
   );
 }
@@ -89,7 +91,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
 ```
 
 ## Contributing
