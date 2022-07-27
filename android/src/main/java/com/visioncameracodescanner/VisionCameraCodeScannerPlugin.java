@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.Image;
+import android.util.Base64;
 
 import com.facebook.react.bridge.ReadableNativeArray;
 import com.facebook.react.bridge.ReadableNativeMap;
@@ -209,6 +210,11 @@ public class VisionCameraCodeScannerPlugin extends FrameProcessorPlugin {
     String rawValue = barcode.getRawValue();
     if (rawValue != null) {
       map.putString("rawValue", rawValue);
+    }
+
+    byte[] rawBytes = barcode.getRawBytes();
+    if (rawBytes != null) {
+      map.putString("rawBytes", Base64.encodeToString(rawBytes, Base64.NO_WRAP));
     }
 
     map.putMap("content", convertContent(barcode));
